@@ -1,0 +1,7 @@
+/build
+/local.properties
+.idea
+*.jks
+.DS_Store
+*.iml
+*.apk

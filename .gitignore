@@ -1,0 +1,12 @@
+.gradle
+/local.properties
+/bintray.pro
+.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+*.jks
+.DS_Store
+*.iml
+*.apk

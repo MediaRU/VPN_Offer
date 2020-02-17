@@ -1,0 +1,75 @@
+ext {
+    bintrayRepo = 'VPN_Offer'
+    bintrayName = 'vpnOfferSDK'
+
+    publishedGroupId = 'mr.vpn.offer'
+    libraryName = 'vpnOfferSDK'
+    artifact = 'vpnOfferSDK'
+
+    vCode = 1
+    vName = '1.0.0'
+    libraryDescription = ''
+    libraryVersion = vName
+
+    developerId = 'vladkrupizkiy'
+    developerName = 'vladkrupizkiy'
+    developerEmail = 'dev@mediaru.co.il'
+
+    siteUrl = ''
+    gitUrl = 'https://github.com/MediaRU/vpnoffer-sdk.git'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        compileSdkVersion 28
+        versionCode vCode
+        versionName vName
+    }
+
+    packagingOptions {
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.properties'
+        exclude 'META-INF/androidx.lifecycle_lifecycle-runtime.version'
+        exclude 'META-INF/androidx.core_core.version'
+        exclude 'META-INF/androidx.versionedparcelable_versionedparcelable.version'
+        exclude 'androidx/annotation/**'
+    }
+
+    libraryVariants.all { variant ->
+        if (variant.buildType.name == "release")
+            variant.outputs.each { output ->
+                output.outputFileName = "vpn_offer_sdk.aar"
+            }
+    }
+
+    buildTypes {
+        release {
+            useProguard true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'
